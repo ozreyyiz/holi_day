@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:holi_day/view/pages/home_page/home_page.dart';
+import 'package:holi_day/view/pages/onboarding_page/widgets/onboarding_text_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -84,7 +85,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         thinText: "Explore the       ",
                         boldText: "Beautiful world!",
                       ),
-                      SizedBox(height: 80),
+                      SizedBox(height: 100),
                     ],
                   ),
                 ),
@@ -142,7 +143,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         ),
                       ),
                     ),
-              SizedBox(height: 20),
+              SizedBox(height: 50),
             ],
           ),
         ],
@@ -166,36 +167,4 @@ class _OnboardingPageState extends State<OnboardingPage> {
   }
 }
 
-class OnboardingText extends StatelessWidget {
-  const OnboardingText({
-    Key? key,
-    required this.thinText,
-    required this.boldText,
-  }) : super(key: key);
 
-  final String thinText;
-  final String boldText;
-
-  @override
-  Widget build(BuildContext context) {
-    return RichText(
-      text: TextSpan(children: [
-        TextSpan(
-          text: thinText,
-          style: GoogleFonts.nunito(
-            fontSize: 50,
-            fontWeight: FontWeight.w200,
-            color: Colors.white.withOpacity(0.8),
-          ),
-        ),
-        TextSpan(
-            text: boldText,
-            style: GoogleFonts.nunito(
-              fontSize: 40,
-              fontWeight: FontWeight.bold,
-              color: Colors.white.withOpacity(0.8),
-            ))
-      ]),
-    );
-  }
-}
