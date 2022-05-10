@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:holi_day/core/constants/colors.dart';
-import 'package:holi_day/core/widgets/bottom_navigation_icons.dart';
+import 'package:holi_day/view/constants/colors.dart';
+import 'package:holi_day/view/widgets/custom_navigation_bar_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../widgets/bottom_navigation_icons.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -15,32 +17,52 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-          currentIndex: currentIndex,
-          unselectedItemColor: holiWhite,
-          selectedItemColor: holiBlack,
-          onTap: (index) => setState(() => currentIndex = index),
-          type: BottomNavigationBarType.fixed,
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(BottomNavigatonIcons.avatar),
-              label: "as",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(BottomNavigatonIcons.home),
-              label: "das",
-            ),
-          ]),
+      bottomNavigationBar: CustomBottomNavigationBar(
+        currentIndex: currentIndex,
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: holiBlack,
+        child: Icon(Icons.shopping_cart),
+        onPressed: () {},
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       appBar: AppBar(
+        backgroundColor: holiWhite,
+        elevation: 0,
+        leading: Padding(
+          padding: const EdgeInsets.all(2.0),
+          child: GestureDetector(
+            onTap: () {},
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(20)),
+              child: Icon(
+                Icons.line_weight,
+                color: holiBlack,
+              ),
+            ),
+          ),
+        ),
         actions: [
-          IconButton(
-              onPressed: () async {
+          Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: GestureDetector(
+              onTap: () async {
                 final prefs = await SharedPreferences.getInstance();
                 prefs.setBool("showHome", false);
               },
-              icon: Icon(
-                Icons.dangerous,
-              ))
+              child: Container(
+                width: 50,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20)),
+                child: Icon(
+                  Icons.notifications_none,
+                  color: holiBlack,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
       body: Container(
