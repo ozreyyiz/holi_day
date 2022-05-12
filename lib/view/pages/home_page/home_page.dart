@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:holi_day/view/constants/colors.dart';
-import 'package:holi_day/view/widgets/custom_navigation_bar_widget.dart';
+import 'package:holi_day/view/pages/home_page/screens/detail_screen.dart';
+import 'package:holi_day/view/pages/home_page/screens/home_screen.dart';
+import 'package:holi_day/view/pages/home_page/screens/profile_screen.dart';
+import 'package:holi_day/view/pages/home_page/screens/saved_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../widgets/bottom_navigation_icons.dart';
@@ -14,17 +17,51 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
+  final screens = [
+    HomeScreen(),
+    DetailScreen(),
+    SavedScreen(),
+    ProfileScreen()
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: CustomBottomNavigationBar(
-        currentIndex: currentIndex,
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: holiBlack,
-        child: Icon(Icons.shopping_cart),
-        onPressed: () {},
-      ),
+      bottomNavigationBar: BottomNavigationBar(
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          elevation: 20,
+          currentIndex: currentIndex,
+          unselectedItemColor: holiWhite,
+          selectedItemColor: holiBlack,
+          onTap: (index) => setState(() {
+                currentIndex = index;
+              }),
+          type: BottomNavigationBarType.fixed,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(BottomNavigatonIcons.home),
+              label: "as",
+            ),
+            BottomNavigationBarItem(
+              icon: Padding(
+                padding: EdgeInsets.only(right: 20),
+                child: Icon(BottomNavigatonIcons.save_instagram),
+              ),
+              label: "das",
+            ),
+            BottomNavigationBarItem(
+              icon: Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: Icon(BottomNavigatonIcons.file),
+              ),
+              label: "das",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(BottomNavigatonIcons.avatar),
+              label: "das",
+            ),
+          ]),
+      floatingActionButton: CustomFloatingActionButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       appBar: AppBar(
         backgroundColor: holiWhite,
@@ -65,12 +102,22 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: Container(
-        color: holiWhite,
-        child: Center(
-          child: Text("HOME"),
-        ),
-      ),
+      body: screens[currentIndex],
+    );
+  }
+}
+
+class CustomFloatingActionButton extends StatelessWidget {
+  const CustomFloatingActionButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      backgroundColor: holiBlack,
+      child: Icon(Icons.shopping_cart),
+      onPressed: () {},
     );
   }
 }

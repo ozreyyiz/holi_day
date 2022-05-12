@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:holi_day/view/constants/colors.dart';
 import 'package:holi_day/view/pages/home_page/home_page.dart';
 import 'package:holi_day/view/pages/onboarding_page/onboarding_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main()  async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
   final showHome = prefs.getBool("showHome") ?? false;
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Holi Day',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primaryColor: holiBlack,
         ),
         home: showHome ? HomePage() : OnboardingPage());
   }
