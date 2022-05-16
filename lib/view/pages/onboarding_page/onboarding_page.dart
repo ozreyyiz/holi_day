@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:holi_day/view/constants/colors.dart';
 import 'package:holi_day/view/pages/home_page/home_page.dart';
 import 'package:holi_day/view/pages/onboarding_page/widgets/onboarding_text_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -37,18 +38,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 decoration: onboardingPageDecoration(
                     imgsrc:
                         "https://images.pexels.com/photos/2184504/pexels-photo-2184504.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"),
-                child: Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: const [
-                      OnboardingText(
-                        thinText: "Let's make ",
-                        boldText: "your dream vacation.",
-                      ),
-                      SizedBox(height: 80),
-                    ],
+                child: const DesignOnBoarding(
+                  widget: OnboardingText(
+                    thinText: "Let's make",
+                    boldText: "your dream vocation",
                   ),
                 ),
               ),
@@ -56,40 +49,23 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 decoration: onboardingPageDecoration(
                     imgsrc:
                         "https://images.pexels.com/photos/3185488/pexels-photo-3185488.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"),
-                child: Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: const [
-                      OnboardingText(
-                        thinText: "Find the       ",
-                        boldText: "new places.",
-                      ),
-                      SizedBox(height: 80),
-                    ],
+                child: const DesignOnBoarding(
+                  widget: OnboardingText(
+                    thinText: "Find the       ",
+                    boldText: "new places.",
                   ),
                 ),
               ),
               Container(
-                decoration: onboardingPageDecoration(
-                    imgsrc:
-                        "https://images.pexels.com/photos/3214994/pexels-photo-3214994.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
-                child: Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: const [
-                      OnboardingText(
-                        thinText: "Explore the       ",
-                        boldText: "Beautiful world!",
-                      ),
-                      SizedBox(height: 100),
-                    ],
-                  ),
-                ),
-              ),
+                  padding: EdgeInsets.only(bottom: 10),
+                  decoration: onboardingPageDecoration(
+                      imgsrc:
+                          "https://images.pexels.com/photos/3214994/pexels-photo-3214994.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+                  child: DesignOnBoarding(
+                      widget: OnboardingText(
+                    thinText: "Explore the       ",
+                    boldText: "Beautiful world!",
+                  ))),
             ],
           ),
           Column(
@@ -97,36 +73,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
             children: [
               isLastPage
                   ? Center(
-                      child: Container(
-                      width: size.width / 2,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: [
-                            Color.fromARGB(255, 246, 182, 86),
-                            Colors.orange,
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        ),
-                        borderRadius: BorderRadius.circular(10),
+                      child: TemplateButton(borderRadius: BorderRadius.circular(10),
+                        height: 50,
+                        width: size.width / 2,
+                        size: size,
+                        child: OnboardingGetStartedButton(),
                       ),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            primary: Colors.transparent),
-                        onPressed: () async {
-                          final prefs = await SharedPreferences.getInstance();
-                          prefs.setBool("showHome", true);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: ((context) => HomePage())));
-                        },
-                        child: Text("Get Started"),
-                      ),
-                    ))
+                    )
                   : Center(
                       child: SmoothPageIndicator(
                         controller: pageController,
@@ -167,4 +120,84 @@ class _OnboardingPageState extends State<OnboardingPage> {
   }
 }
 
+class DesignOnBoarding extends StatelessWidget {
+  const DesignOnBoarding({
+    Key? key,
+    required this.widget,
+  }) : super(key: key);
+  final Widget widget;
 
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(18.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          widget,
+          SizedBox(height: 80),
+        ],
+      ),
+    );
+  }
+}
+
+class TemplateButton extends StatelessWidget {
+  const TemplateButton({
+    Key? key,
+    required this.size,
+    required this.child,
+    required this.width,
+    required this.height, required this.borderRadius,
+  }) : super(key: key);
+
+  final Size size;
+  final Widget child;
+  final double width;
+  final double height;
+  final BorderRadiusGeometry borderRadius;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [
+            gradientOrangeOne,
+            gradientOrangeTwo,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+        borderRadius: borderRadius,
+      ),
+      child: child,
+    );
+  }
+}
+
+class OnboardingGetStartedButton extends StatelessWidget {
+  const OnboardingGetStartedButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          primary: Colors.transparent),
+      onPressed: () async {
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setBool("showHome", true);
+        Navigator.push(
+            context, MaterialPageRoute(builder: ((context) => HomePage())));
+      },
+      child: Text("Get Started"),
+    );
+  }
+}

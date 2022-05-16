@@ -63,45 +63,6 @@ class _HomePageState extends State<HomePage> {
           ]),
       floatingActionButton: CustomFloatingActionButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      appBar: AppBar(
-        backgroundColor: holiWhite,
-        elevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.all(2.0),
-          child: GestureDetector(
-            onTap: () {},
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(20)),
-              child: Icon(
-                Icons.line_weight,
-                color: holiBlack,
-              ),
-            ),
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: GestureDetector(
-              onTap: () async {
-                final prefs = await SharedPreferences.getInstance();
-                prefs.setBool("showHome", false);
-              },
-              child: Container(
-                width: 50,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20)),
-                child: Icon(
-                  Icons.notifications_none,
-                  color: holiBlack,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
       body: screens[currentIndex],
     );
   }
