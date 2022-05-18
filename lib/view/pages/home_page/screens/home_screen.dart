@@ -80,7 +80,21 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  _travelPlacesHeader(size),
+                  SizedBox(
+                    height: size.height / 3,
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 10),
+                        _travelPlacesHeader(),
+                        const SizedBox(height: 10),
+                        SingleChildScrollView(
+                          physics: BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          child: _travelPlaces(),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
@@ -90,35 +104,22 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  SizedBox _travelPlacesHeader(Size size) {
-    return SizedBox(
-      height: size.width / 1.5,
-      child: Column(
-        children: [
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _smallHeader("Travel Places"),
-              Card(
-                color: Colors.grey[300],
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Text("View All"),
-                ),
-              ),
-            ],
+  Row _travelPlacesHeader() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        _smallHeader("Travel Places"),
+        Card(
+          color: Colors.grey[300],
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
           ),
-          SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            child: _travelPlaces(),
-          )
-        ],
-      ),
+          child: const Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Text("View All"),
+          ),
+        ),
+      ],
     );
   }
 
@@ -207,41 +208,37 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Material _notSelectedButton(
+  Widget _notSelectedButton(
       {required String imageUrl, required String header}) {
-    return Material(
-      elevation: 20,
-      borderRadius: BorderRadius.circular(15),
-      child: Container(
-        width: 100,
-        height: 50,
-        decoration: BoxDecoration(
-          color: white,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Image.network(
-              imageUrl,
-              scale: 10,
+    return Container(
+      width: 100,
+      height: 50,
+      decoration: BoxDecoration(
+        color: white,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Image.network(
+            imageUrl,
+            scale: 10,
+          ),
+          Text(
+            header,
+            style: GoogleFonts.nunito(
+              color: holiBlack,
+              fontWeight: FontWeight.w600,
             ),
-            Text(
-              header,
-              style: GoogleFonts.nunito(
-                color: holiBlack,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
   Material _selectedButton() {
     return Material(
-      elevation: 20,
+      elevation: 5,
       borderRadius: BorderRadius.circular(15),
       child: Container(
         width: 100,
